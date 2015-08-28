@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'com.github.ben-manes.versions'
+
+group 'com.github.klane'
+version '1.0-SNAPSHOT'
+
+def compatibilityVersion = 1.8
+sourceCompatibility = compatibilityVersion
+targetCompatibility = compatibilityVersion
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.inject:guice:4.0'
+    compile 'com.github.lucarosellini.rJava:JRIEngine:0.9-7'
+}
