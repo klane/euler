@@ -1,4 +1,4 @@
-package com.github.klane.euler.problems;
+package com.github.klane.euler.problems.problems001_020;
 
 import com.github.klane.euler.JavaProblem;
 

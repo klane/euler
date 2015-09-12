@@ -37,7 +37,7 @@ public final class Application implements Runnable {
                     language = Languages.valueOf(this.scanner.next().toUpperCase());
                     done = true;
                 } catch (IllegalArgumentException e) {
-                    this.output.println("Invalid entry");
+                    this.output.println("Unsupported language");
                 }
             }
 
@@ -59,12 +59,12 @@ public final class Application implements Runnable {
                 try {
                     Problem<?> problem = language.apply(Integer.parseInt(input));
 
-                    if (problem != null) {
+                    if (problem.exists()) {
                         this.problemRunner.accept(problem);
                     } else {
-                        this.output.printf("%s problem %s not found\n", language, input);
+                        this.output.printf("%s not found\n", problem);
                     }
-                } catch (NumberFormatException e) {
+                } catch (IllegalArgumentException e) {
                     this.output.println("Invalid entry");
                 }
             }

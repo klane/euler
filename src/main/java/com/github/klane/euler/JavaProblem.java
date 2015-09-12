@@ -1,9 +1,33 @@
 package com.github.klane.euler;
 
-public abstract class JavaProblem<T extends Number> extends AbstractProblem<T> {
+import com.google.common.base.Throwables;
+
+import java.io.File;
+
+public class JavaProblem<T extends Number> extends AbstractProblem<T> {
+
+    private Problem<T> problem;
 
     public JavaProblem() {
         super(Languages.JAVA);
-        super.setId(Integer.parseInt(this.getClass().getSimpleName().replace("Problem", "")));
+    }
+
+    @SuppressWarnings("unchecked")
+    public JavaProblem(final int id) {
+        super(Languages.JAVA, id);
+
+        try {
+            String path = super.file.getParent().replace(File.separator, ".").replace("src.main.java.", "");
+            this.problem = (Problem<T>) Class.forName(String.format("%s.Problem%d", path, id)).newInstance();
+        } catch (ClassNotFoundException e) {
+            this.problem = null;
+        } catch (IllegalAccessException | InstantiationException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+
+    @Override
+    public T get() {
+        return this.problem.get();
     }
 }

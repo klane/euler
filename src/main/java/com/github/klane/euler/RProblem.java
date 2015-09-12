@@ -7,7 +7,7 @@ import org.rosuda.REngine.REngineException;
 
 public final class RProblem extends AbstractProblem<Integer> {
 
-    public static REngine ENGINE;
+    public static final REngine ENGINE;
 
     static {
         try {
@@ -18,14 +18,13 @@ public final class RProblem extends AbstractProblem<Integer> {
     }
 
     public RProblem(final int id) {
-        super(Languages.R);
-        super.setId(id);
+        super(Languages.R, id);
     }
 
     @Override
     public Integer get() {
         try {
-            ENGINE.parseAndEval(String.format("source('%s/Problem%d.R')", Languages.R.get(), super.getAsInt()));
+            ENGINE.parseAndEval(String.format("source('%s')", super.file));
             return ENGINE.parseAndEval("solve()").asInteger();
         } catch (REngineException | REXPMismatchException e) {
             throw Throwables.propagate(e);

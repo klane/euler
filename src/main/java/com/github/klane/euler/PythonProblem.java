@@ -6,26 +6,27 @@ import jep.JepException;
 
 public final class PythonProblem extends AbstractProblem<Integer> {
 
-    public static Jep INTERPRETER;
+    public static final Jep INTERPRETER;
 
     static {
         try {
             INTERPRETER = new Jep(false);
             INTERPRETER.eval("import sys");
-            INTERPRETER.eval(String.format("sys.path.insert(0, '%s')", Languages.PYTHON.get()));
         } catch (JepException e) {
             throw Throwables.propagate(e);
         }
     }
 
     public PythonProblem(final int id) {
-        super(Languages.PYTHON);
-        super.setId(id);
+        super(Languages.PYTHON, id);
 
-        try {
-            INTERPRETER.eval(String.format("from Problem%d import solve", id));
-        } catch (JepException e) {
-            throw Throwables.propagate(e);
+        if (super.exists()) {
+            try {
+                INTERPRETER.eval(String.format("sys.path.insert(0, '%s')", super.file.getParent()));
+                INTERPRETER.eval(String.format("from Problem%d import solve", id));
+            } catch (JepException e) {
+                throw Throwables.propagate(e);
+            }
         }
     }
 
