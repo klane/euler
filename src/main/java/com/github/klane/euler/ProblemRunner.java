@@ -28,7 +28,7 @@ public final class ProblemRunner implements Consumer<Problem<?>> {
         this.timeLimiter = timeLimiter;
         this.stopwatch = Stopwatch.createUnstarted(ticker);
         this.output = output;
-        this.solver = (problem) -> {
+        this.solver = problem -> {
             this.stopwatch.start();
             Number result = problem.get();
             this.stopwatch.stop();

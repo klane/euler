@@ -44,7 +44,7 @@ public final class Application implements Runnable {
             return language;
         };
 
-        Function<Languages, String> inputFunction = (language) -> {
+        Function<Languages, String> inputFunction = language -> {
             this.output.printf("Enter %s problem number, c to change language, or q to quit: ", language);
             return this.scanner.next();
         };
