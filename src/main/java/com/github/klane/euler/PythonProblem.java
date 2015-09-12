@@ -4,9 +4,12 @@ import com.google.common.base.Throwables;
 import jep.Jep;
 import jep.JepException;
 
+import java.io.File;
+
 public final class PythonProblem extends AbstractProblem<Integer> {
 
     public static final Jep INTERPRETER;
+    private static File PREVIOUS_PROBLEM;
 
     static {
         try {
@@ -22,10 +25,16 @@ public final class PythonProblem extends AbstractProblem<Integer> {
 
         if (super.exists()) {
             try {
-                INTERPRETER.eval(String.format("sys.path.insert(0, '%s')", super.file.getParent()));
+                if (PREVIOUS_PROBLEM != null) {
+                    INTERPRETER.eval(String.format("sys.path.remove('%s')", PREVIOUS_PROBLEM.getParent()));
+                }
+
+                INTERPRETER.eval(String.format("sys.path.append('%s')", super.file.getParent()));
                 INTERPRETER.eval(String.format("from Problem%d import solve", id));
             } catch (JepException e) {
                 throw Throwables.propagate(e);
+            } finally {
+                PREVIOUS_PROBLEM = super.file;
             }
         }
     }
