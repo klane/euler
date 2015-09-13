@@ -12,19 +12,19 @@ import java.util.function.IntFunction;
 
 public abstract class AbstractProblem<T extends Number> implements Problem<T> {
 
-    private final Languages language;
+    private final Language language;
     private final int id;
     protected final File file;
 
-    public AbstractProblem(final Languages language) {
+    public AbstractProblem(final Language language) {
         this(language, null);
     }
 
-    public AbstractProblem(final Languages language, final int id) {
+    public AbstractProblem(final Language language, final int id) {
         this(language, (Integer) id);
     }
 
-    private AbstractProblem(final Languages language, final Integer id) {
+    private AbstractProblem(final Language language, final Integer id) {
         int problemsPerPackage = 20;
         Joiner joiner = Joiner.on(File.separator);
         Range<Integer> range = Range.closed(1, problemsPerPackage);

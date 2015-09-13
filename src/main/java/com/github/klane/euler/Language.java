@@ -2,7 +2,7 @@ package com.github.klane.euler;
 
 import java.util.function.IntFunction;
 
-public enum Languages implements IntFunction<Problem<?>> {
+public enum Language implements IntFunction<Problem<?>> {
 
     JAVA(JavaProblem::new, ".java", "src", "main", "java", "com", "github", "klane", "euler", "problems"),
     PYTHON(PythonProblem::new, ".py", "src", "main", "python"),
@@ -12,7 +12,7 @@ public enum Languages implements IntFunction<Problem<?>> {
     private final String[] location;
     private final IntFunction<Problem<?>> function;
 
-    Languages(final IntFunction<Problem<?>> function, final String extension, final String... location) {
+    Language(final IntFunction<Problem<?>> function, final String extension, final String... location) {
         this.function = function;
         this.extension = extension;
         this.location = location;

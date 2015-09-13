@@ -24,17 +24,17 @@ public final class Application implements Runnable {
 
     @Override
     public void run() {
-        String languageNames = Arrays.toString(Languages.values());
+        String languageNames = Arrays.toString(Language.values());
 
-        Supplier<Languages> languageSupplier = () -> {
-            Languages language = null;
+        Supplier<Language> languageSupplier = () -> {
+            Language language = null;
             boolean done = false;
 
             while (!done) {
                 this.output.printf("Enter language %s: ", languageNames);
 
                 try {
-                    language = Languages.valueOf(this.scanner.next().toUpperCase());
+                    language = Language.valueOf(this.scanner.next().toUpperCase());
                     done = true;
                 } catch (IllegalArgumentException e) {
                     this.output.println("Unsupported language");
@@ -44,12 +44,12 @@ public final class Application implements Runnable {
             return language;
         };
 
-        Function<Languages, String> inputFunction = language -> {
+        Function<Language, String> inputFunction = language -> {
             this.output.printf("Enter %s problem number, c to change language, or q to quit: ", language);
             return this.scanner.next();
         };
 
-        Languages language = languageSupplier.get();
+        Language language = languageSupplier.get();
         String input = inputFunction.apply(language);
 
         while (!input.equalsIgnoreCase("q")) {

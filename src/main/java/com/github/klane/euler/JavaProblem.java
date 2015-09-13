@@ -9,12 +9,12 @@ public class JavaProblem<T extends Number> extends AbstractProblem<T> {
     private Problem<T> problem;
 
     public JavaProblem() {
-        super(Languages.JAVA);
+        super(Language.JAVA);
     }
 
     @SuppressWarnings("unchecked")
     public JavaProblem(final int id) {
-        super(Languages.JAVA, id);
+        super(Language.JAVA, id);
 
         try {
             String path = super.file.getParent().replace(File.separator, ".").replace("src.main.java.", "");

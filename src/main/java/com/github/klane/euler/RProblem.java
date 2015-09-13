@@ -18,7 +18,7 @@ public final class RProblem extends AbstractProblem<Integer> {
     }
 
     public RProblem(final int id) {
-        super(Languages.R, id);
+        super(Language.R, id);
     }
 
     @Override

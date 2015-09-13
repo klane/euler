@@ -21,7 +21,7 @@ public final class PythonProblem extends AbstractProblem<Integer> {
     }
 
     public PythonProblem(final int id) {
-        super(Languages.PYTHON, id);
+        super(Language.PYTHON, id);
 
         if (super.exists()) {
             try {
