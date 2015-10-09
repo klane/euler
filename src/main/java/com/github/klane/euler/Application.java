@@ -28,14 +28,12 @@ public final class Application implements Runnable {
 
         Supplier<Language> languageSupplier = () -> {
             Language language = null;
-            boolean done = false;
 
-            while (!done) {
+            while (language == null) {
                 this.output.printf("Enter language %s: ", languageNames);
 
                 try {
                     language = Language.valueOf(this.scanner.next().toUpperCase());
-                    done = true;
                 } catch (IllegalArgumentException e) {
                     this.output.println("Unsupported language");
                 }
