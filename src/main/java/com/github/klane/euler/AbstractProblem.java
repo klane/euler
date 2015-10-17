@@ -2,13 +2,9 @@ package com.github.klane.euler;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.google.common.collect.Range;
-import com.google.common.math.IntMath;
 
 import java.io.File;
-import java.math.RoundingMode;
-import java.util.function.IntFunction;
 
 public abstract class AbstractProblem<T extends Number> implements Problem<T> {
 
@@ -25,11 +21,10 @@ public abstract class AbstractProblem<T extends Number> implements Problem<T> {
     }
 
     private AbstractProblem(final Language language, final Integer id) {
+        this.language = language;
         int problemsPerPackage = 20;
         Joiner joiner = Joiner.on(File.separator);
         Range<Integer> range = Range.closed(1, problemsPerPackage);
-        IntFunction<String> zeros = i -> Strings.repeat("0", 3 - (IntMath.log10(i, RoundingMode.FLOOR) + 1)) + i;
-        this.language = language;
 
         if (id == null) {
             this.id = Integer.parseInt(this.getClass().getSimpleName().replace("Problem", ""));
@@ -43,7 +38,7 @@ public abstract class AbstractProblem<T extends Number> implements Problem<T> {
         }
 
         this.file = new File(joiner.join(joiner.join(this.language.getLocation()),
-                String.format("problems%s_%s", zeros.apply(range.lowerEndpoint()), zeros.apply(range.upperEndpoint())),
+                String.format("problems%03d_%03d", range.lowerEndpoint(), range.upperEndpoint()),
                 "Problem" + this.id + this.language.getExtension()));
     }
 
