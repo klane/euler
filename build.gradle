@@ -14,7 +14,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
     }
 }
 
@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+    compile files("$pythonDir/jep/jep-3.4.2.jar")
     compile 'com.google.inject:guice:4.0'
     compile 'com.github.lucarosellini.rJava:JRIEngine:0.9-7'
 }
