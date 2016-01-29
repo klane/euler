@@ -9,7 +9,7 @@ import java.io.File;
 public abstract class AbstractProblem<T extends Number> implements Problem<T> {
 
     private final Language language;
-    private final int id;
+    protected final int id;
     protected final File file;
 
     public AbstractProblem(final Language language) {

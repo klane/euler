@@ -3,6 +3,11 @@ package com.github.klane.euler;
 import com.google.common.base.Throwables;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class JavaProblem<T extends Number> extends AbstractProblem<T> {
 
@@ -23,6 +28,17 @@ public class JavaProblem<T extends Number> extends AbstractProblem<T> {
             this.problem = null;
         } catch (IllegalAccessException | InstantiationException e) {
             throw Throwables.propagate(e);
+        }
+    }
+
+    public List<String> readFile() {
+        Path path = Paths.get("src", "main", "resources", String.format("problem%d.txt", super.id));
+
+        try {
+            return Files.readAllLines(path);
+        } catch (IOException e) {
+            System.out.println("\tFile not found: " + path);
+            return null;
         }
     }
 
